@@ -1,47 +1,64 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import Heading from "./components/atoms/heading";
+import Text from "./components/atoms/text";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const userPrefersTheme = (theme) =>
+        window.matchMedia &&
+        window.matchMedia(`(prefers-color-scheme: ${theme})`).matches;
 
-  const onClickButton = () => setCount((count) => count + 1)
+    const changeToTheme = (theme) => {
+        const htmlElement = document.querySelector("html");
+        const reversedTheme = theme === "dark" ? "light" : "dark";
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={onClickButton}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+        htmlElement.classList.add(`${theme}-theme`);
+        htmlElement.classList.remove(`${reversedTheme}-theme`);
+    };
+
+    const verifyThemeClass = (theme) => {
+        const htmlElement = document.querySelector("html");
+
+        return htmlElement.classList.contains(`${theme}-theme`);
+    };
+
+    const toggleTheme = () => {
+        if (verifyThemeClass("dark")) return changeToTheme("light");
+
+        if (verifyThemeClass("light")) return changeToTheme("dark");
+
+        if (userPrefersTheme("dark")) return changeToTheme("light");
+
+        if (userPrefersTheme("light")) return changeToTheme("dark");
+    };
+
+    return (
+        <div className="App">
+            <Heading element="h1">Heading H1</Heading>
+            <Heading element="h2">Heading H2</Heading>
+            <Heading element="h3">Heading H3</Heading>
+            <Heading element="h4">Heading H4</Heading>
+            <Heading element="h5">Heading H5</Heading>
+            <Heading element="h6">Heading H6</Heading>
+            <Text weight="bold" size="xl">
+                Text XL
+            </Text>
+            <Text weight="bold" size="lg">
+                Text LG
+            </Text>
+            <Text weight="bold" size="base">
+                Text BS
+            </Text>
+            <Text weight="bold" size="sm">
+                Text SM
+            </Text>
+            <Text weight="bold" size="xs">
+                Text XS
+            </Text>
+
+            <button onClick={toggleTheme}>Change theme</button>
+        </div>
+    );
 }
 
-export default App
+export default App;
