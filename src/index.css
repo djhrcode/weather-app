@@ -1,13 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap");
+
+:root {
+    --primary-color: #00a6db;
+    --secondary-color: ##ffa800;
+    --dark-color: #002d42;
+    --light-color: #e2f5fb;
+
+    --background-color: var(--light-color);
+    --text-color: var(--dark-color);
+}
+
+html {
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    transition: all 300ms;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: "Lexend", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: var(--dark-color);
+        --text-color: var(--light-color);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: var(--light-color);
+        --text-color: var(--dark-color);
+    }
+}
+
+html.dark-theme {
+  --background-color: var(--dark-color);
+  --text-color: var(--light-color);
+}
+
+html.light-theme {
+  --background-color: var(--light-color);
+  --text-color: var(--dark-color);
 }
